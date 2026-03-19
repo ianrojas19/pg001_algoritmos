@@ -4,10 +4,7 @@ package model;
     Motor de recursividad: Implementa factorial y fibonacci en JavaFX
    */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RecursionEngine {
 
@@ -116,7 +113,7 @@ public class RecursionEngine {
     private String buildFactExp(int n) {
         if (n <= 1) return "1";
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i >= 1; i--) {
+        for (int i = n; i >= 1; i--) {
             sb.append(i);
             if (i > 1) sb.append(" * ");
         }
@@ -136,8 +133,6 @@ public class RecursionEngine {
         return callCount;
     }
 
-    public Map<Integer, Long> getMemo(){
-        return memo;
-    }
+    public Map<Integer, Long> getMemo(){return Collections.unmodifiableMap(memo);}
 
 }

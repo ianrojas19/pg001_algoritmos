@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import model.Recursion;
 import model.RecursionEngine;
+import model.TreePainter;
 
 import java.net.URL;
 import java.util.List;
@@ -37,6 +38,7 @@ public class MainController implements Initializable {
 
 //    atributos internos de la clase controller
     private final RecursionEngine engine = new RecursionEngine();
+    private final TreePainter painter = new TreePainter();
     private RecursionEngine.CallNode lastRoot;
     private List<RecursionEngine.CallNode> factBFS;
 
@@ -84,6 +86,7 @@ public class MainController implements Initializable {
         lblFactResult.setText(util.Utility.format(engine.getTreeRoot().result));
         lblFactCalls.setText(util.Utility.format(engine.getCallCount()));
         lblComplexity.setText("O(n) = O(" + n + ") llamadas");
+        painter.paint(canvasTree, lastRoot, factBFS.size(), factBFS);
     }
 
     private void resetFactTab() {
