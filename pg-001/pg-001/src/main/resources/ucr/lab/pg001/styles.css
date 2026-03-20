@@ -236,6 +236,19 @@
     -fx-font-weight: bold;
     -fx-text-fill: -ucr-navy;
 }
+.stat-value-good {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00ff1e;
+}
+
+.stat-value-bad {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff0202;
+}
+
+
 .stat-value-sm {
     -fx-font-size: 13px;
     -fx-font-weight: bold;

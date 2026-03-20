@@ -187,13 +187,13 @@
                      <items>
                         <VBox alignment="CENTER" prefHeight="676.0" prefWidth="575.0">
                            <children>
-                              <Canvas height="648.0" width="552.0" />
+                              <Canvas height="648.0" width="477.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <VBox prefHeight="688.0" prefWidth="111.0" spacing="20.0">
+                        <VBox prefHeight="676.0" prefWidth="443.0" spacing="20.0">
                            <children>
                               <Label text="Parámetros">
                                  <VBox.margin>
@@ -207,6 +207,40 @@
                                  </children>
                               </HBox>
                               <Slider fx:id="sliderFactN1" majorTickUnit="1.0" max="15.0" min="1.0" minorTickCount="2" showTickLabels="true" />
+                              <HBox style="-fx-background-color: -ucr-lightgray;">
+                                 <children>
+                                    <Button mnemonicParsing="false" styleClass="btn-primary" text="Sin Memorización" />
+                                    <Button mnemonicParsing="false" styleClass="btn-ghost" text="Cin Memorización" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0" style="-fx-background-color: transparent;">
+                                 <children>
+                                    <Button mnemonicParsing="false" styleClass="btn-primary" text="Calcular" />
+                                    <Button mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0" style="-fx-background-color: transparent;">
+                                 <children>
+                                    <VBox prefHeight="43.0" prefWidth="254.0" spacing="2.0" style="-fx-background-color: -ucr-lightgray;">
+                                       <children>
+                                          <Label styleClass="stat-label" text="Resultado" />
+                                          <Label styleClass="stat-value-sm" text="--" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox prefHeight="43.0" prefWidth="254.0" spacing="2.0" style="-fx-background-color: -ucr-lightgray;">
+                                       <children>
+                                          <Label styleClass="stat-label" text="Llamadas" />
+                                          <Label styleClass="stat-value-sm" text="--" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
