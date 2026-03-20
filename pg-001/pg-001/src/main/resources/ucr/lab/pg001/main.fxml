@@ -217,7 +217,7 @@
                                     <Label fx:id="lblFactN1" styleClass="value-badge" text="5" />
                                  </children>
                               </HBox>
-                              <Slider fx:id="sliderFactN1" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="2" showTickLabels="true" />
+                              <Slider fx:id="sliderFactN1" majorTickUnit="1.0" max="15.0" min="1.0" minorTickCount="2" showTickLabels="true" />
                            </children>
                            <padding>
                               <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
