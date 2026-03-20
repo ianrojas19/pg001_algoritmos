@@ -6,10 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import model.Recursion;
 import model.RecursionEngine;
 import model.TreePainter;
@@ -50,6 +47,12 @@ public class MainController implements Initializable {
     private RecursionEngine.CallNode lastRoot;
     private List<RecursionEngine.CallNode> factBFS;
     private final int[] testValues = {5, 10, 12, 15, 20};
+    @javafx.fxml.FXML
+    private Slider sliderFactN1;
+    @javafx.fxml.FXML
+    private Label lblFactN1;
+    @javafx.fxml.FXML
+    private ToggleGroup ops_facfib1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

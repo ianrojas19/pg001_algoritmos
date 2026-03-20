@@ -50,77 +50,66 @@
       <TabPane prefHeight="200.0" prefWidth="963.0" styleClass="main-tabs" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
             <Tab text="Fac-Fib">
-               <content>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="677.0" prefWidth="410.0" spacing="20.0">
+                        <HBox layoutY="263.0" prefHeight="416.0" prefWidth="963.0">
                            <children>
+                              <TreeView prefHeight="394.0" prefWidth="974.0">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin></TreeView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="677.0" prefWidth="559.0" spacing="20.0">
+                           <children>
+                              <Label styleClass="panel-title" text="Cálculo de Factorial y Fibonacci" />
                               <HBox spacing="7.0">
                                  <children>
-                                    <Label styleClass="panel-title" text="Valor de n:" />
-                                    <TextField prefHeight="22.0" prefWidth="210.0" />
+                                    <Label prefHeight="18.0" prefWidth="80.0" styleClass="param-label" text="Valor de n:" />
+                                    <TextField prefHeight="36.0" prefWidth="205.0" styleClass="value-badge-light" text="20" />
                                  </children>
                               </HBox>
                               <HBox spacing="30.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" selected="true" styleClass="chart-title" text="Factorial">
+                                    <RadioButton mnemonicParsing="false" selected="true" styleClass="btn-accent" text="Factorial">
                                        <toggleGroup>
-                                          <ToggleGroup fx:id="ops_facfib" />
+                                          <ToggleGroup fx:id="ops_facfib1" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" styleClass="chart-title" text="Fibonacci" toggleGroup="$ops_facfib" />
+                                    <RadioButton mnemonicParsing="false" styleClass="btn-accent" text="Fibonacci" toggleGroup="$ops_facfib1" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="btn-primary" text="Calcular">
+                                    <Button mnemonicParsing="false" styleClass="btn-primary" text="Calcular">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="btn-ghost" text="Limpiar">
+                                    <Button mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Button>
                                  </children>
                               </HBox>
-                              <VBox spacing="30.0">
+                              <HBox spacing="25.0">
                                  <children>
-                                    <VBox spacing="7.0">
-                                       <children>
-                                          <Label styleClass="panel-title" text="Resultado: " />
-                                          <TextField />
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="7.0">
-                                       <children>
-                                          <Label styleClass="panel-title" text="Tiempo:">
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Label>
-                                          <TextField />
-                                       </children>
-                                    </VBox>
+                                    <Label styleClass="stat-label" text="Resultado: " />
+                                    <Label styleClass="stat-value" text="--" />
+                                    <Label styleClass="stat-label" text="t(n):" />
+                                    <Label styleClass="stat-value" text="--" />
                                  </children>
-                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </padding>
-                              </VBox>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <VBox prefHeight="677.0" prefWidth="718.0">
-                           <children>
-                              <TreeView prefHeight="676.0" prefWidth="637.0" />
-                           </children>
-                        </VBox>
                      </children>
-                  </HBox>
-               </content>
+                  </AnchorPane>
+              </content>
             </Tab>
           <Tab text="Factorial">
                <content>
