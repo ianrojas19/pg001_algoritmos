@@ -193,9 +193,39 @@
                </content>
           </Tab>
           <Tab text="Fibonacci">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <VBox alignment="CENTER" prefHeight="676.0" prefWidth="575.0">
+                           <children>
+                              <Canvas height="648.0" width="552.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="688.0" prefWidth="111.0" spacing="20.0">
+                           <children>
+                              <Label text="Parámetros">
+                                 <VBox.margin>
+                                    <Insets bottom="-7.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label styleClass="param-label" text="n = " />
+                                    <Label fx:id="lblFactN1" styleClass="value-badge" text="5" />
+                                 </children>
+                              </HBox>
+                              <Slider fx:id="sliderFactN1" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="2" showTickLabels="true" />
+                           </children>
+                           <padding>
+                              <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                           </padding>
+                        </VBox>
+                     </items>
+                  </SplitPane>
+               </content>
           </Tab>
             <Tab text="Gráfico">
                <content>
