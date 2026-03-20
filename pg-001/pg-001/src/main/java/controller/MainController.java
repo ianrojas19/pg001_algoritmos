@@ -52,12 +52,30 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Label lblFactN1;
     @javafx.fxml.FXML
-    private ToggleGroup ops_facfib1;
+    private ListView listFacFibSteps;
+    @javafx.fxml.FXML
+    private Label lblFacFibResultado;
+    @javafx.fxml.FXML
+    private Button btnFacFibCalcular;
+    @javafx.fxml.FXML
+    private Label lblFacFibComplejidad;
+    @javafx.fxml.FXML
+    private TextField txtFacFibN;
+    @javafx.fxml.FXML
+    private RadioButton rbFibonacci;
+    @javafx.fxml.FXML
+    private RadioButton rbFactorial;
+    @javafx.fxml.FXML
+    private Button btnFacFibLimpiar;
+    @javafx.fxml.FXML
+    private ToggleGroup tgFacFib;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupFactTab();
         setupBenchmarkCharts();
+        btnFacFibCalcular.setOnAction(e -> runFacFib());
+        btnFacFibLimpiar.setOnAction(e -> limpiarFacFib());
     }
 
     private void setupFactTab() {
@@ -102,6 +120,66 @@ public class MainController implements Initializable {
         //dibujamos el árbol de llamadas en el canva
         painter.paint(canvasTree, lastRoot, factBFS.size(), factBFS);
     }
+
+    private void runFacFib() {
+        int n;
+
+        try {
+            n = Integer.parseInt(txtFacFibN.getText());
+        } catch (Exception e) {
+            lblFacFibResultado.setText("Error");
+            return;
+        }
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+
+        if (rbFactorial.isSelected()) {
+
+            long t1 = System.nanoTime();
+            long result = engine.computeFactorial(n);
+            long t2 = System.nanoTime();
+
+//            lblFacFibResultado.setText(util.Utility.format(result));
+//            lblFacFibComplejidad.setText(util.Utility.format(t2 - t1) + " ns");
+            lblFacFibResultado.setText(util.Utility.formatWithoutDecimals(result));
+            lblFacFibComplejidad.setText(util.Utility.formatWithoutDecimals(t2 - t1) + " ns");
+
+            items.add("Árbol de llamadas recursivos");
+            for (int i = 0; i < engine.getSteps().size(); i++) {
+                RecursionEngine.Step step = engine.getSteps().get(i);
+                items.add(String.format("[%02d] %s", i+1, step.description));
+            }
+
+        } else if (rbFibonacci.isSelected()) {
+
+            AtomicInteger counter = new AtomicInteger(0);
+
+            long t1 = System.nanoTime();
+            long result = engine.computeFibonacci(n);
+            long t2 = System.nanoTime();
+
+//            lblFacFibResultado.setText(util.Utility.format(result));
+//            lblFacFibComplejidad.setText(util.Utility.format(t2 - t1) + " ns");
+            lblFacFibResultado.setText(util.Utility.formatWithoutDecimals(result));
+            lblFacFibComplejidad.setText(util.Utility.formatWithoutDecimals(t2 - t1) + " ns");
+
+            items.add("Árbol de llamadas recursivos");
+            for (int i = 0; i < engine.getSteps().size(); i++) {
+                RecursionEngine.Step step = engine.getSteps().get(i);
+                items.add(String.format("[%02d] %s", i+1, step.description));
+            }
+        }
+
+        listFacFibSteps.setItems(items);
+    }
+
+    private void limpiarFacFib() {
+        txtFacFibN.clear();
+        lblFacFibResultado.setText("--");
+        lblFacFibComplejidad.setText("--");
+        listFacFibSteps.getItems().clear();
+    }
+
     private void setupBenchmarkCharts() {
 
         if (chartTime == null || chartCalls == null)

@@ -15,7 +15,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -55,11 +54,11 @@
                      <children>
                         <HBox layoutY="263.0" prefHeight="416.0" prefWidth="963.0">
                            <children>
-                              <TreeView prefHeight="394.0" prefWidth="974.0">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin></TreeView>
+                              <ListView fx:id="listFacFibSteps" prefHeight="416.0" prefWidth="973.0" />
                            </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
                         </HBox>
                         <VBox layoutX="10.0" layoutY="10.0" prefHeight="677.0" prefWidth="559.0" spacing="20.0">
                            <children>
@@ -67,39 +66,39 @@
                               <HBox spacing="7.0">
                                  <children>
                                     <Label prefHeight="18.0" prefWidth="80.0" styleClass="param-label" text="Valor de n:" />
-                                    <TextField prefHeight="36.0" prefWidth="205.0" styleClass="value-badge-light" text="20" />
+                                    <TextField fx:id="txtFacFibN" prefHeight="36.0" prefWidth="205.0" styleClass="value-badge-light" text="20" />
                                  </children>
                               </HBox>
                               <HBox spacing="30.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" selected="true" styleClass="btn-accent" text="Factorial">
+                                    <RadioButton fx:id="rbFactorial" mnemonicParsing="false" selected="true" styleClass="btn-accent" text="Factorial">
                                        <toggleGroup>
-                                          <ToggleGroup fx:id="ops_facfib1" />
+                                          <ToggleGroup fx:id="tgFacFib" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" styleClass="btn-accent" text="Fibonacci" toggleGroup="$ops_facfib1" />
+                                    <RadioButton fx:id="rbFibonacci" mnemonicParsing="false" styleClass="btn-accent" text="Fibonacci" toggleGroup="$tgFacFib" />
                                  </children>
                               </HBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" styleClass="btn-primary" text="Calcular">
+                                    <Button fx:id="btnFacFibCalcular" mnemonicParsing="false" styleClass="btn-primary" text="Calcular">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar">
+                                    <Button fx:id="btnFacFibLimpiar" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox spacing="25.0">
+                              <HBox spacing="40.0">
                                  <children>
                                     <Label styleClass="stat-label" text="Resultado: " />
-                                    <Label styleClass="stat-value" text="--" />
+                                    <Label fx:id="lblFacFibResultado" styleClass="stat-value" text="--" />
                                     <Label styleClass="stat-label" text="t(n):" />
-                                    <Label styleClass="stat-value" text="--" />
+                                    <Label fx:id="lblFacFibComplejidad" styleClass="stat-value" text="--" />
                                  </children>
                               </HBox>
                            </children>

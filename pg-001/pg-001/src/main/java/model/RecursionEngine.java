@@ -74,7 +74,7 @@ public class RecursionEngine {
     private long factorial(int n, CallNode parent, int depth) {
         callCount++;
         String label = "fact(" + n + ")";
-        steps.add(new Step("Llamada #" + callCount + " " + label,
+        steps.add(new Step("Llamada No.: " + callCount + ": " + label,
                 buildFactExp(n),
                 -1,
                 false,
@@ -118,6 +118,81 @@ public class RecursionEngine {
             if (i > 1) sb.append(" * ");
         }
         return sb.toString();
+    }
+
+    /**
+     * Fibonacci
+     * */
+
+    public long computeFibonacci(int n) {
+        reset();
+        treeRoot = new CallNode("fib(" + n + ")", n, 0);
+
+        long result = fibonacci(n, treeRoot, 0);
+
+        steps.add(new Step(
+                "Resultado final:",
+                "fib(" + n + ") = " + result,
+                result,
+                false,
+                callCount
+        ));
+
+        return result;
+    }
+
+    private long fibonacci(int n, CallNode parent, int depth) {
+        callCount++;
+        String label = "fib(" + n + ")";
+        steps.add(new Step(
+                "Llamada No.: " + callCount + ": " + label,
+                buildFibExp(n),
+                -1,
+                false,
+                callCount
+        ));
+
+        if (n <= 1) {
+            parent.result = n;
+
+            steps.add(new Step(
+                    "Caso base: " + label + " = " + n,
+                    label + " = " + n,
+                    n,
+                    false,
+                    callCount
+            ));
+
+            return n;
+        }
+
+        CallNode left = new CallNode("fib(" + (n - 1) + ")", n - 1, depth + 1);
+        parent.children.add(left);
+
+        long a = fibonacci(n - 1, left, depth + 1);
+
+        CallNode right = new CallNode("fib(" + (n - 2) + ")", n - 2, depth + 1);
+        parent.children.add(right);
+
+        long b = fibonacci(n - 2, right, depth + 1);
+
+        long result = a + b;
+        parent.result = result;
+
+        steps.add(new Step(
+                "Retorno: " + label + " = " + a + " + " + b + " = " + result,
+                label + " = " + result,
+                result,
+                false,
+                callCount
+        ));
+
+        return result;
+    }
+
+    private String buildFibExp(int n) {
+        if (n <= 1) return String.valueOf(n);
+        return "fib(" + (n - 1) + ") + fib(" + (n - 2) + ")";
     }
 
     //Creamos los getters
