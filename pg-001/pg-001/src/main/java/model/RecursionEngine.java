@@ -189,6 +189,87 @@ public class RecursionEngine {
 
         return result;
     }
+    
+    public long computeFibonacciMemo(int n) {
+        reset();
+        treeRoot = new CallNode("fib(" + n + ")", n, 0);
+
+        long result = fibonacciMemo(n, treeRoot, 0);
+
+        steps.add(new Step(
+                "Resultado final:",
+                "fib(" + n + ") = " + result,
+                result,
+                false,
+                callCount
+        ));
+
+        return result;
+    }
+
+    private long fibonacciMemo(int n, CallNode parent, int depth) {
+        if (memo.containsKey(n)) {
+            long result = memo.get(n);
+            parent.result = result;
+            parent.fromMemo = true;
+            steps.add(new Step(
+                    "Memorización: fib(" + n + ")",
+                    "fib(" + n + ") = " + result,
+                    result,
+                    true,
+                    callCount
+            ));
+            return result;
+        }
+    
+        callCount++;
+        String label = "fib(" + n + ")";
+        steps.add(new Step(
+                "Llamada No.: " + callCount + ": " + label,
+                buildFibExp(n),
+                -1,
+                false,
+                callCount
+        ));
+
+        if (n <= 1) {
+            parent.result = n;
+            memo.put(n, (long) n);
+            steps.add(new Step(
+                    "Caso base: " + label + " = " + n,
+                    label + " = " + n,
+                    n,
+                    false,
+                    callCount
+            ));
+
+            return n;
+        }
+
+        CallNode left = new CallNode("fib(" + (n - 1) + ")", n - 1, depth + 1);
+        parent.children.add(left);
+
+        long a = fibonacciMemo(n - 1, left, depth + 1);
+
+        CallNode right = new CallNode("fib(" + (n - 2) + ")", n - 2, depth + 1);
+        parent.children.add(right);
+
+        long b = fibonacciMemo(n - 2, right, depth + 1);
+
+        long result = a + b;
+        parent.result = result;
+        memo.put(n, result);
+
+        steps.add(new Step(
+                "Retorno: " + label + " = " + a + " + " + b + " = " + result,
+                label + " = " + result,
+                result,
+                false,
+                callCount
+        ));
+
+        return result;
+    }
 
     private String buildFibExp(int n) {
         if (n <= 1) return String.valueOf(n);

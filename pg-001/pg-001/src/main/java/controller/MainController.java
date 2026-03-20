@@ -46,13 +46,15 @@ public class MainController implements Initializable {
     private final TreePainter painter = new TreePainter();
     private RecursionEngine.CallNode lastRoot;
     private List<RecursionEngine.CallNode> factBFS;
+    
+    // variables para fibonacci tree
+    private RecursionEngine.CallNode fibRoot;
+    private List<RecursionEngine.CallNode> fibBFS;
+    
     private final int[] testValues = {5, 10, 12, 15, 20};
+    
     @javafx.fxml.FXML
-    private Slider sliderFactN1;
-    @javafx.fxml.FXML
-    private Label lblFactN1;
-    @javafx.fxml.FXML
-    private ListView listFacFibSteps;
+    private ListView<String> listFacFibSteps;
     @javafx.fxml.FXML
     private Label lblFacFibResultado;
     @javafx.fxml.FXML
@@ -69,10 +71,33 @@ public class MainController implements Initializable {
     private Button btnFacFibLimpiar;
     @javafx.fxml.FXML
     private ToggleGroup tgFacFib;
+    
+    // Fibonacci Tab components
+    @javafx.fxml.FXML
+    private Canvas canvasFibTree;
+    @javafx.fxml.FXML
+    private Label lblFibN;
+    @javafx.fxml.FXML
+    private Slider sliderFibN;
+    @javafx.fxml.FXML
+    private Button btnFibNoMemo;
+    @javafx.fxml.FXML
+    private Button btnFibMemo;
+    @javafx.fxml.FXML
+    private Label lblFibResult;
+    @javafx.fxml.FXML
+    private Label lblFibCalls;
+    @javafx.fxml.FXML
+    private Label lblFibComplexity;
+    @javafx.fxml.FXML
+    private Label lblFibSavedCalls;
+    @javafx.fxml.FXML
+    private ListView<String> listFibSteps;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupFactTab();
+        setupFibTab();
         setupBenchmarkCharts();
         btnFacFibCalcular.setOnAction(e -> runFacFib());
         btnFacFibLimpiar.setOnAction(e -> limpiarFacFib());
@@ -87,12 +112,36 @@ public class MainController implements Initializable {
         btnFactCalc.setOnAction(event -> runFactorial());
         btnFactReset.setOnAction(e -> resetFactTab());
     }
+    
+    private void setupFibTab() {
+        sliderFibN.setMin(1); sliderFibN.setMax(15); sliderFibN.setValue(5);
+        sliderFibN.setMajorTickUnit(1); sliderFibN.setSnapToTicks(true);
+        sliderFibN.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lblFibN.setText(String.valueOf(newValue.intValue()));
+        });
+        btnFibNoMemo.setOnAction(event -> runFibonacci());
+        btnFibMemo.setOnAction(e -> runFibonacciMemo());
+    }
 
     private void resetFactTab() {
         lblFactResult.setText("-");
         lblFactCalls.setText("-");
         lblComplexity.setText("-");
         listSteps.getItems().clear();
+        if (canvasTree != null) {
+            canvasTree.getGraphicsContext2D().clearRect(0, 0, canvasTree.getWidth(), canvasTree.getHeight());
+        }
+    }
+    
+    private void resetFibTab() {
+        lblFibResult.setText("-");
+        lblFibCalls.setText("-");
+        lblFibComplexity.setText("-");
+        lblFibSavedCalls.setText("-");
+        listFibSteps.getItems().clear();
+        if (canvasFibTree != null) {
+            canvasFibTree.getGraphicsContext2D().clearRect(0, 0, canvasFibTree.getWidth(), canvasFibTree.getHeight());
+        }
     }
 
     private void runFactorial() {
@@ -119,6 +168,59 @@ public class MainController implements Initializable {
 
         //dibujamos el árbol de llamadas en el canva
         painter.paint(canvasTree, lastRoot, factBFS.size(), factBFS);
+    }
+    
+    private void runFibonacci() {
+        int n = (int) sliderFibN.getValue();
+        
+        long result = engine.computeFibonacci(n);
+        fibRoot = engine.getTreeRoot();
+        fibBFS = TreePainter.collectBFS(fibRoot);
+        
+        //llenamos la lista de pasos
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (int i = 0; i < engine.getSteps().size(); i++) {
+            RecursionEngine.Step step = engine.getSteps().get(i);
+            items.add(String.format("[%02d] %s", i+1, step.description));
+        }
+        listFibSteps.setItems(items);
+        
+        lblFibResult.setText(util.Utility.formatWithoutDecimals(result));
+        lblFibCalls.setText(String.valueOf(engine.getCallCount()));
+        lblFibComplexity.setText("O(2^n)");
+        lblFibSavedCalls.setText("0"); // Without memoization
+        
+        painter.paint(canvasFibTree, fibRoot, fibBFS.size(), fibBFS);
+    }
+    
+    private void runFibonacciMemo() {
+        int n = (int) sliderFibN.getValue();
+        
+        // Calcula llamadas sin memoización para comparar (sin afectar UI)
+        RecursionEngine tempEngine = new RecursionEngine();
+        tempEngine.computeFibonacci(n);
+        int totalCallsWithoutMemo = tempEngine.getCallCount();
+        
+        long result = engine.computeFibonacciMemo(n);
+        fibRoot = engine.getTreeRoot();
+        fibBFS = TreePainter.collectBFS(fibRoot);
+        
+        //llenamos la lista de pasos
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (int i = 0; i < engine.getSteps().size(); i++) {
+            RecursionEngine.Step step = engine.getSteps().get(i);
+            items.add(String.format("[%02d] %s", i+1, step.description));
+        }
+        listFibSteps.setItems(items);
+        
+        lblFibResult.setText(util.Utility.formatWithoutDecimals(result));
+        lblFibCalls.setText(String.valueOf(engine.getCallCount()));
+        lblFibComplexity.setText("O(n)");
+        
+        int savedCalls = totalCallsWithoutMemo - engine.getCallCount();
+        lblFibSavedCalls.setText(String.valueOf(savedCalls));
+        
+        painter.paint(canvasFibTree, fibRoot, fibBFS.size(), fibBFS);
     }
 
     private void runFacFib() {
